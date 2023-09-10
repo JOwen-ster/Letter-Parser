@@ -6,14 +6,18 @@ using std::string;
 
 class LetterParse{
     public:
-        bool parse()const;
-        string get_input()const;
-        string get_grammar()const;
-
-        LetterParse(const string &input) : input_(input) {}
+        LetterParse(const string &input) {}
+        
+        bool parse();
+        string get_input() const;
+        string get_grammar() const;
 
 
     private:
         string input_;
+        size_t index_;
+        bool stateS();
+        bool stateB();        
+        bool stateC();
 };
 
