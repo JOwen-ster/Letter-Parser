@@ -9,14 +9,13 @@ using std::endl;
 int main() {
     string in;
     char continue_;
+    LetterParse parser("");
     while(true){
         cout << "Enter a token with $ at the end: ";
         cin >> in;
-        LetterParse parser("");
         parser.set_input(in);
-        bool determine = parser.parse();
 
-        if (determine) cout << "Token " << parser.get_input() << " is accepted by the machine."<< endl;
+        if (parser.parse()) cout << "Token " << parser.get_input() << " is accepted by the machine."<< endl;
         else cout << "Token " << parser.get_input() << " is rejected by the machine."<< endl;
 
         cout << "Continue? [y/n] ";

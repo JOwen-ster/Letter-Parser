@@ -4,9 +4,7 @@ using std::string;
 
 
 LetterParse::LetterParse(const string &input) {
-    this->input_ = input;
-    this->index_ = 0;
-    this->current_character_ = input_[index_];
+    set_input(input);
 }
 
 string LetterParse::get_input() const {
@@ -15,6 +13,8 @@ string LetterParse::get_input() const {
 
 void LetterParse::set_input(const string &newInput) {
     this->input_ = newInput;
+    this->index_ = 0;
+    this->current_character_ = input_[index_];
 }
 
 bool LetterParse::parse() { // Grammar
@@ -27,35 +27,38 @@ void LetterParse::next_index() {
 }
 
 bool LetterParse::stateS() { // State S (Start)
-    if (this->current_character_ == 'a') {
-        next_index();
-        return stateS();
-    } else if (this->current_character_ == 'b') {
-        next_index();
-        return stateB();
-    } else if (this->current_character_ == 'c') {
-        next_index();
-        return stateC();
+    switch(current_character_){
+        case 'a':
+            next_index();
+            return stateS();
+        case 'b':
+            next_index();
+            return stateB();
+        case 'c':
+            next_index();
+            return stateC();
     }
-    return false; // Not in grammar
+    return false;
 }
 
 bool LetterParse::stateB() { // State B
-    if (this->current_character_ == 'b') {
-        next_index();
-        return stateB();
-    } else if (this->current_character_ == 'a') {
-        next_index();
-        return stateC();
+    switch(current_character_){
+        case 'b':
+            next_index();
+            return stateB();
+        case 'a':
+            next_index();
+            return stateC();
     }
-    return true; // Lambda
+    return true;
 }
 
 bool LetterParse::stateC() { // State C
-    if (this->current_character_ == 'a') {
-        next_index();
-        return stateS();
+    switch(current_character_){
+        case 'a':
+            next_index();
+            return stateS();
     }
-    return true; // Lambda
+    return true;
 }
 
