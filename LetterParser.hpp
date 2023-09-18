@@ -11,6 +11,7 @@ class LetterParse{
         bool parse();
         string get_input() const;
         void set_input(const string &newInput);
+        void isValidToken();
 
 
     private:

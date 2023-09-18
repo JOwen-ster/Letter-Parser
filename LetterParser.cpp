@@ -1,5 +1,8 @@
 #include "LetterParser.hpp"
+#include <iostream>
 #include <string>
+#include <algorithm>
+#include <iomanip>
 using std::string;
 
 
@@ -62,3 +65,46 @@ bool LetterParse::stateC() { // State C
     return true;
 }
 
+void LetterParse::isValidToken(){
+    std::string tok;
+    string isNum = "yes"; // t
+    string isIdentifier = "yes"; // t
+    string isReserved = "no"; // f
+    const string reserved[5] = {"while", "for", "switch", "do", "return"};
+    std::getline(std::cin, tok);
+    if(tok == ":q") exit(0);
+
+    if(tok.empty()){
+        return;
+    }else{
+        for(const char &c : tok){
+            if(!isdigit(c)){
+                isNum = "no";
+                break;
+            }
+        }
+
+        if(tok[0] == '_' || isalpha(tok[0])){
+            for(int i = 1; i < tok.size(); i++){
+                if(!isalnum(tok[i]) && tok[i] != '_'){
+                    isIdentifier = "no";
+                    break;
+                }
+            }
+        }else{
+            isIdentifier = "no";
+        }
+
+        for(int i = 0; i < reserved->size(); i++){
+            if(tok == reserved[i]){
+                isReserved = "yes";
+                break;
+            }
+        }
+    }
+
+    std::cout << std::left << std::setw(15) << tok
+    << std::setw(15) << isNum
+    << std::setw(15) << isIdentifier
+    << std::setw(15) << isReserved;
+};
